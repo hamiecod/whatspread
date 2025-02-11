@@ -7,11 +7,23 @@ import sys
 import random
 from PyQt5.QtWidgets import QApplication
 from PyQt5.QtGui import QImage, QPixmap
+import argparse
 
-# checks if an argument is provided
-if len(sys.argv) > 1:
-    start_from = sys.argv[1]
-    message_templates = sys.argv[2:]
+
+# Parsing
+parser = argparse.ArgumentParser(description="Process start, end and message descriptions")
+
+parser.add_argument('-s', '--start', required=True, help='Start Value')
+parser.add_argument('-e', '--end', required=True, help='End Value')
+
+parser.add_argument('message_templates', nargs='*', help='List of message templates')
+
+args = parser.parse_args()
+
+start_from = int(args.start)
+end_at = int(args.end)
+message_templates = args.message_templates
+
 
 # default values for microsoft surface pro 9
 search_box = (222, 244)
@@ -20,7 +32,7 @@ chat_box = (1088, 1777)
 caption_area = (1063, 1622)
 
 def loadMessage():
-    with open(random.choice(message_templates)), 'r') as file:
+    with open((random.choice(message_templates)), 'r') as file:
         message = file.read()
     return message
 
@@ -108,7 +120,7 @@ def open_chat(phoneNumber):
     time.sleep(1)
 
 # copies image to clipboard
-from copy_image_to_clipboard(image_path):
+def copy_image_to_clipboard(image_path):
     app = QApplication(image_path)
 
     pil_image = Image.open(image_path)
@@ -119,7 +131,7 @@ from copy_image_to_clipboard(image_path):
     clipboard = app.clipboard()
     clipboard.setPixmap(QPixmap.fromImage(qimage))
 
-def text_and_image(image, contactName) {
+def text_and_image(image, contactName):
     copy_image_to_clipboard(image)
     pyautogui.hotkey('ctrl', 'v')
     # delay to paste data
@@ -129,7 +141,7 @@ def text_and_image(image, contactName) {
     pyautogui.dragTo(caption_area[0], caption_area[1], duration=time.uniform(0.2, 0.5))
     pyautogui.click()
     type_multiline_message(loadMessage(), contactName)
-}
+
 
 def text_only(contactName):
    type_multiline_message(loadMessage(), contactName)
@@ -141,7 +153,7 @@ def main():
     df = pd.read_csv('contacts.csv')
     for i in range(len(df)):
 
-        if i < start_from:
+        if i < start_from or i > end_at:
             continue
 
         contactName = df.at[i, 'name']
