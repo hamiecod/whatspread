@@ -13,11 +13,11 @@ def begin():
     message2 = data.get('message2', '')
     message3 = data.get('message3', '')
 
-    print(f"start: {start}")
-    print(f"end: {end}")
-    print(f"message1: {message1}")
-    print(f"message2: {message2}")
-    print(f"message3: {message3}")
+    # debugging
+    # print(f"start: {start}")
+    # print(f"end: {end}") print(f"message1: {message1}")
+    # print(f"message2: {message2}")
+    # print(f"message3: {message3}")
 
     #saving messages
     with open('message1.txt', 'w') as f1:
