@@ -8,7 +8,7 @@ import random
 from PyQt5.QtWidgets import QApplication
 from PyQt5.QtGui import QImage, QPixmap
 import argparse
-
+import pyperclip
 
 # Parsing
 parser = argparse.ArgumentParser(description="Process start, end and message descriptions")
@@ -52,12 +52,18 @@ def ocr(x,y,width,height):
 
     print(text)
 
-def type_multiline_message(message, contactName):
+def type_multiline_message(message, contactName, fast=True):
     time.sleep(random.uniform(0.05, 0.25))
     message = message.replace('{{name}}', contactName)
 
     for char in message:
         if char == '\n':
+            if fast == True :
+                lines = text.split('\n')
+                copied_text = '\n'.join(lines[1:])
+                pyperclip.copy(copied_text)
+                break
+
             pyautogui.keyDown('shift')
             pyautogui.press('enter')
             pyautogui.keyUp('shift')
@@ -80,6 +86,9 @@ def type_multiline_message(message, contactName):
             time.sleep(random.uniform(0.005, 0.1))
         else:
             time.sleep(random.uniform(0.003, 0.005))
+
+    # in case of fast typing, paste the copied text
+    pyautogui.hotkey('ctrl', 'v')
 
 # moves the mouse like a human
 def human_like_move(x, y, min_duration=0.05, max_duration=0.15):
