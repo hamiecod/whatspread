@@ -59,7 +59,7 @@ def type_multiline_message(message, contactName, fast=True):
     for char in message:
         if char == '\n':
             if fast == True :
-                lines = text.split('\n')
+                lines = message.split('\n')
                 copied_text = '\n'.join(lines[1:])
                 pyperclip.copy(copied_text)
                 break
@@ -88,7 +88,7 @@ def type_multiline_message(message, contactName, fast=True):
             time.sleep(random.uniform(0.003, 0.005))
 
     # in case of fast typing, paste the copied text
-    pyautogui.hotkey('ctrl', 'v')
+    #pyautogui.hotkey('ctrl', 'v')
 
 # moves the mouse like a human
 def human_like_move(x, y, min_duration=0.05, max_duration=0.15):
