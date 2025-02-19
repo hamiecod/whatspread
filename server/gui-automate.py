@@ -69,12 +69,12 @@ def type_multiline_message(message, contactName, fast=True):
             pyautogui.keyUp('shift')
 
         else:
-            pyautogui.write(char)
+            pyautogui.write(str(char)
 
         # simulate occassional typo
         if random.randint(1, 70) == 1:
             typo_char = random.choice('abcdefghijklmnopqrstuvwxyz')
-            pyautogui.write(typo_char)
+            pyautogui.write(str(typo_char)
             time.sleep(random.uniform(0.1, 0.3))
             pyautogui.press('backspace')
             time.sleep(random.uniform(0.05, 0.2))
@@ -112,7 +112,7 @@ def open_chat(phoneNumber):
     time.sleep(0.5)
 
     # write phone number in search box
-    pyautogui.write(phoneNumber, interval=random.uniform(0.05, 0.15))
+    pyautogui.write(str(phoneNumber), interval=random.uniform(0.05, 0.15))
 
     # wait time for contacts to appear
     time.sleep(1.5)
@@ -183,6 +183,9 @@ def main():
         # Final Step: Sends the message
         pyautogui.press("enter")
         time.sleep(1)
+
+        if random.randint(1,100) == 100 :
+            time.sleep(100)
 
 if __name__ == "__main__":
     main()
